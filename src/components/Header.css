@@ -1,0 +1,13 @@
+.header {
+    background-image: url('../assets/probar.jpg');
+    max-width: 100%; /* Reduzca el ancho de la imagen al 50% del tamaño original */
+    height: 880px; /* Reduzca el ancho de la imagen al 50% del tamaño original */
+    background-size: cover; /* Ajusta la imagen para cubrir todo el ancho */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen */
+    /* Otros estilos que desees aplicar al encabezado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px; /* Espacio para el sombreado en la parte inferior */
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2); /* Definición del sombreado */
+  }
