@@ -2,6 +2,7 @@ import logo from "../assets/spacex.png";
 import "./Header.css";
 import headerImg from "../assets/spacexheader1.png";
 import RocketGif from "../assets/cohete1.gif";
+import Fade from "react-reveal/Fade";
 
 const gifHeaderStyle = {
   marginBottom: "100px",
@@ -10,9 +11,13 @@ const gifHeaderStyle = {
 export function Header() {
   return (
     <>
+    <Fade big>
       <div className="header">
-        <img style={gifHeaderStyle} src={RocketGif} alt="Gif Rocket" />
+      <Fade delay={1000}>
+          <img style={gifHeaderStyle} src={RocketGif} alt="Gif Rocket" />
+      </Fade>
       </div>
+      </Fade>
     </>
   );
 }
