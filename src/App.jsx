@@ -1,18 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import {Header} from './components/header'
+import { useState, useEffect } from "react";
+import "./App.css";
+import { Header } from "./components/header";
+import { LaunchItem } from "./components/LaunchItem";
+import * as API from "./services/launches";
 
-function App() {
-  // const [count, setCount] = useState(0)
 
+export function App() {
+  
+  const [launches, setLaunches] = useState([]);
+
+  useEffect(() => {
+    API.getAllLaunches().then(setLaunches);
+  }, []);
 
   return (
     <>
-      <Header />
+      <Header/>
+      <section>
+        {launches.map((launch) => (
+          <LaunchItem key={launch.flight_number} {...launch} />
+        ))}
+      </section>
     </>
-  )
+  );
 }
 
-export default App
+
