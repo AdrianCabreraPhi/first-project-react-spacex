@@ -1,6 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import * as API from "../services/launches";
 import { useState, useEffect } from "react";
+
 import {
   Box,
   SimpleGrid,
@@ -19,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import Fade from "react-reveal/Fade";
 import leftImg from "../assets/spacex.png";
-import { FaHashtag } from "react-icons/fa";
+import { FaHashtag, FaHome } from "react-icons/fa";
 import { FcCalendar } from "react-icons/fc";
 import { PiMapPinLineDuotone } from "react-icons/pi";
 import { BsRocketTakeoff } from "react-icons/bs";
@@ -47,9 +48,7 @@ export function LaunchDetails() {
     API.getLaunchByFlightNumber(launchId)
       .then((launchData) => {
         setLaunch(launchData);
-        console.log(launchData);
         if (launchData.rocket) {
-          console.log(launchData.rocket.rocket_id);
           API.getRocketDetails(launchData.rocket.rocket_id)
             .then((rocketData) => {
               setRocket(rocketData);
@@ -67,9 +66,14 @@ export function LaunchDetails() {
           <Box flex="60%" h="100%">
             <Fade delay={2000}>
               <Box bg="black" h="5%" m={0} p={0}>
-                <Button size="lg" colorScheme="blackAlpha">
-                  Return
-                </Button>
+                <Link to="/">
+                  <Button size="lg" colorScheme="blackAlpha">
+                    <Box display="flex" alignItems="center">
+                      <FaHome />
+                      <Text pt={1} ml={2}>Home</Text>
+                    </Box>
+                  </Button>
+                </Link>
               </Box>
               <Box h="95%">
                 <Center h="60vh">
@@ -92,7 +96,7 @@ export function LaunchDetails() {
             </Box>
             <Box h="15%" mr={10} textColor="white">
               <Flex>
-                <Fade top delay={5000}>
+                <Fade top delay={4000}>
                   <Box p="4">
                     <SimpleGrid columns={1} spacing={8}>
                       <Box fontSize="5xl" height="50px">
@@ -105,7 +109,7 @@ export function LaunchDetails() {
                   </Box>
                 </Fade>
                 <Spacer />
-                <Fade top delay={6000}>
+                <Fade top delay={5000}>
                   <Box p="4">
                     <SimpleGrid columns={1} spacing={8}>
                       <Box fontSize="5xl" height="50px">
@@ -118,7 +122,7 @@ export function LaunchDetails() {
                   </Box>
                 </Fade>
                 <Spacer />
-                <Fade top delay={7000}>
+                <Fade top delay={6000}>
                   <Box p="4">
                     <SimpleGrid columns={1} spacing={8}>
                       <Box color="gray" fontSize="5xl" height="50px">
@@ -135,7 +139,7 @@ export function LaunchDetails() {
                   </Box>
                 </Fade>
                 <Spacer />
-                <Fade top delay={8000}>
+                <Fade top delay={7000}>
                   <Box p="4">
                     <SimpleGrid columns={1} spacing={8}>
                       <Box fontSize="5xl" height="50px">
@@ -154,7 +158,7 @@ export function LaunchDetails() {
               </Flex>
             </Box>
 
-            <Fade delay={9000}>
+            <Fade delay={8000}>
               <Box h="40%" color="white">
                 <Tabs position="relative" variant="unstyled">
                   <TabList>
@@ -171,19 +175,25 @@ export function LaunchDetails() {
                     <TabPanel h="100%">
                       <Flex bg="black" h="35vh">
                         <Box flex="40%" h="100%">
-                          <Image objectFit="cover" src={RocketGif}></Image>
+                          <Fade>
+                            <Image objectFit="cover" src={RocketGif}></Image>
+                          </Fade>
                         </Box>
                         <Box flex="60%" h="100%">
-                          <Center h="18vh">
-                            <Text>{rocket?.description}</Text>
-                          </Center>
+                          <Fade>
+                            <Center h="18vh">
+                              <Text>{rocket?.description}</Text>
+                            </Center>
+                          </Fade>
                         </Box>
                       </Flex>
                     </TabPanel>
                     <TabPanel h="100%">
                       <Flex h="35vh">
                         <Box h="90%">
-                        <YoutubePlayer videoId="g4aX_Fn7iI4" />
+                          <Fade>
+                            <YoutubePlayer videoId={launch.links?.youtube_id} />
+                          </Fade>
                         </Box>
                       </Flex>
                     </TabPanel>
@@ -197,7 +207,8 @@ export function LaunchDetails() {
                 alignItems="center"
                 mr={4}
               >
-                <IoLogoGithub /> <Text ml={1}>AdrianCabreraPhi</Text>
+                <IoLogoGithub />{" "}
+                <Text ml={1}>AdrianCabreraPhi {launch?.youtube_id} </Text>
               </Box>
             </Fade>
           </Box>
