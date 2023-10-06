@@ -22,6 +22,12 @@ import Fade from "react-reveal/Fade";
 import leftImg from "../assets/spacex.png";
 import { FaRocket, FaHashtag } from "react-icons/fa";
 import { MdFlight } from "react-icons/md";
+import { ImCalendar } from "react-icons/im";
+import { FcCalendar } from "react-icons/fc";
+import { PiMapPinLineDuotone } from "react-icons/pi";
+import { BsRocketTakeoff } from "react-icons/bs";
+
+
 
 export function LaunchDetails() {
   const [launch, setLaunch] = useState({});
@@ -35,18 +41,97 @@ export function LaunchDetails() {
   return (
     <>
       <Fade>
-        <Flex>
-          <Box flex="60%">
-            <Image h="100vh" objectFit="cover" src={leftImg} />
+        <Flex bg="black" h="100vh">
+          <Box flex="60%" h="100%">
+            <Fade delay={2000}>
+              <Box bg="black" h="5%" m={0} p={0}>
+                <Button size="lg" colorScheme="blackAlpha">
+                  Return
+                </Button>
+              </Box>
+
+              <Box h="95%">
+                <Center h="60vh">
+                  <Image objectFit="cover" src={leftImg} />
+                </Center>
+              </Box>
+            </Fade>
           </Box>
-          <Box bg="black" flex="30%">
-            <Box h="10%" bg="yellow">
-              das
+          <Box flex="40%" h="100%">
+            <Box
+              h="40%"
+              bg="black"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Fade delay={3000}>
+                <Image src={launch.links?.mission_patch_small} />
+              </Fade>
             </Box>
-            <Box h="40%" bg="red" display="flex" alignItems="center" justifyContent="center">
-                <Image src={launch?.links.mission_patch_small} />
+            <Box h="60%" mr={10} textColor="white">
+              <Flex>
+                <Fade top delay={5000}>
+                  <Box p="4">
+                    <SimpleGrid columns={1} spacing={8}>
+                      <Box fontSize="5xl" height="50px">
+                        <FaHashtag />
+                      </Box>
+                      <Box height="50px">
+                        <Text textAlign="center">{launch.flight_number}</Text>
+                      </Box>
+                    </SimpleGrid>
+                  </Box>
+                </Fade>
+                <Spacer />
+                <Fade top delay={6000}>
+                  <Box p="4">
+                    <SimpleGrid columns={1} spacing={8}>
+                      <Box fontSize="5xl" height="50px">
+                        <FcCalendar />
+                      </Box>
+                      <Box height="50px">
+                        <Text textAlign="center">{launch.launch_year}</Text>
+                      </Box>
+                    </SimpleGrid>
+                  </Box>
+                </Fade>
+                <Spacer />
+                <Fade top delay={7000}>
+                  <Box p="4">
+                    <SimpleGrid columns={1} spacing={8}>
+                      <Box color="gray" fontSize="5xl" height="50px">
+                        <Center>
+                          <PiMapPinLineDuotone />
+                        </Center>
+                      </Box>
+                      <Box height="50px">
+                        <Text textAlign="center">
+                          {launch.launch_site?.site_name}
+                        </Text>
+                      </Box>
+                    </SimpleGrid>
+                  </Box>
+                </Fade>
+                <Spacer />
+                <Fade top delay={8000}>
+                  <Box  p="4">
+                    <SimpleGrid columns={1} spacing={8}>
+                    <Box  fontSize="5xl" height="50px">
+                        <Center>
+                          <BsRocketTakeoff />
+                        </Center>
+                      </Box>
+                      <Box height="50px">
+                        <Text textAlign="center">
+                          {launch.rocket?.rocket_name}
+                        </Text>
+                      </Box>
+                    </SimpleGrid>
+                  </Box>
+                </Fade>
+              </Flex>
             </Box>
-            <Box h="50%" bg="blue"></Box>
           </Box>
         </Flex>
       </Fade>
