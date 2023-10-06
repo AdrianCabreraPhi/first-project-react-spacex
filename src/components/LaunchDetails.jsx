@@ -17,6 +17,12 @@ import {
   CardFooter,
   CardBody,
   Image,
+  Tabs,
+  TabList,
+  TabIndicator,
+  TabPanels,
+  TabPanel,
+  Tab,
 } from "@chakra-ui/react";
 import Fade from "react-reveal/Fade";
 import leftImg from "../assets/spacex.png";
@@ -26,8 +32,6 @@ import { ImCalendar } from "react-icons/im";
 import { FcCalendar } from "react-icons/fc";
 import { PiMapPinLineDuotone } from "react-icons/pi";
 import { BsRocketTakeoff } from "react-icons/bs";
-
-
 
 export function LaunchDetails() {
   const [launch, setLaunch] = useState({});
@@ -69,7 +73,7 @@ export function LaunchDetails() {
                 <Image src={launch.links?.mission_patch_small} />
               </Fade>
             </Box>
-            <Box h="60%" mr={10} textColor="white">
+            <Box h="15%" mr={10} textColor="white">
               <Flex>
                 <Fade top delay={5000}>
                   <Box p="4">
@@ -115,9 +119,9 @@ export function LaunchDetails() {
                 </Fade>
                 <Spacer />
                 <Fade top delay={8000}>
-                  <Box  p="4">
+                  <Box p="4">
                     <SimpleGrid columns={1} spacing={8}>
-                    <Box  fontSize="5xl" height="50px">
+                      <Box fontSize="5xl" height="50px">
                         <Center>
                           <BsRocketTakeoff />
                         </Center>
@@ -131,6 +135,38 @@ export function LaunchDetails() {
                   </Box>
                 </Fade>
               </Flex>
+            </Box>
+            <Box h="45%" color="white">
+              <Tabs position="relative" variant="unstyled">
+                <TabList>
+                  <Tab>Rocket Details</Tab>
+                  <Tab>Launch video</Tab>
+                </TabList>
+                <TabIndicator
+                  mt="-1.5px"
+                  height="2px"
+                  bg="blue.500"
+                  borderRadius="1px"
+                />
+                <TabPanels>
+                  <TabPanel h="100%">
+                    <Flex bg="black" h="35vh">
+                      <Box flex="50%" h="100%" bg="yellow">
+
+                        
+
+
+                      </Box>
+                      <Box flex="50%" h="100%" bg="pink">
+                        ss
+                      </Box>
+                    </Flex>
+                  </TabPanel>
+                  <TabPanel>
+                    <p>two!</p>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
             </Box>
           </Box>
         </Flex>
