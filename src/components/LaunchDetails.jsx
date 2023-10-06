@@ -8,14 +8,7 @@ import {
   Flex,
   Button,
   Center,
-  Img,
-  Container,
   Spacer,
-  Stack,
-  Card,
-  Heading,
-  CardFooter,
-  CardBody,
   Image,
   Tabs,
   TabList,
@@ -26,21 +19,46 @@ import {
 } from "@chakra-ui/react";
 import Fade from "react-reveal/Fade";
 import leftImg from "../assets/spacex.png";
-import { FaRocket, FaHashtag } from "react-icons/fa";
-import { MdFlight } from "react-icons/md";
-import { ImCalendar } from "react-icons/im";
+import { FaHashtag } from "react-icons/fa";
 import { FcCalendar } from "react-icons/fc";
 import { PiMapPinLineDuotone } from "react-icons/pi";
 import { BsRocketTakeoff } from "react-icons/bs";
 
+import YoutubePlayer from "../services/YoutubePlayer.jsx";
+
+import RocketGif from "../assets/rocket_details.gif";
+
+import { IoLogoGithub } from "react-icons/io";
+
+export const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+};
+
 export function LaunchDetails() {
   const [launch, setLaunch] = useState({});
   const { launchId } = useParams();
-
-  // <FaRocket size={25} />
+  const [rocket, setRocket] = useState();
 
   useEffect(() => {
-    API.getLaunchByFlightNumber(launchId).then(setLaunch).catch(console.log);
+    API.getLaunchByFlightNumber(launchId)
+      .then((launchData) => {
+        setLaunch(launchData);
+        console.log(launchData);
+        if (launchData.rocket) {
+          console.log(launchData.rocket.rocket_id);
+          API.getRocketDetails(launchData.rocket.rocket_id)
+            .then((rocketData) => {
+              setRocket(rocketData);
+              console.log(rocketData);
+            })
+            .catch(console.log);
+        }
+      })
+      .catch(console.log);
   }, [launchId]);
   return (
     <>
@@ -53,7 +71,6 @@ export function LaunchDetails() {
                   Return
                 </Button>
               </Box>
-
               <Box h="95%">
                 <Center h="60vh">
                   <Image objectFit="cover" src={leftImg} />
@@ -61,7 +78,7 @@ export function LaunchDetails() {
               </Box>
             </Fade>
           </Box>
-          <Box flex="40%" h="100%">
+          <Box flex="39.1%" h="100%">
             <Box
               h="40%"
               bg="black"
@@ -136,39 +153,56 @@ export function LaunchDetails() {
                 </Fade>
               </Flex>
             </Box>
-            <Box h="45%" color="white">
-              <Tabs position="relative" variant="unstyled">
-                <TabList>
-                  <Tab>Rocket Details</Tab>
-                  <Tab>Launch video</Tab>
-                </TabList>
-                <TabIndicator
-                  mt="-1.5px"
-                  height="2px"
-                  bg="blue.500"
-                  borderRadius="1px"
-                />
-                <TabPanels>
-                  <TabPanel h="100%">
-                    <Flex bg="black" h="35vh">
-                      <Box flex="50%" h="100%" bg="yellow">
 
-                        
-
-
-                      </Box>
-                      <Box flex="50%" h="100%" bg="pink">
-                        ss
-                      </Box>
-                    </Flex>
-                  </TabPanel>
-                  <TabPanel>
-                    <p>two!</p>
-                  </TabPanel>
-                </TabPanels>
-              </Tabs>
-            </Box>
+            <Fade delay={9000}>
+              <Box h="40%" color="white">
+                <Tabs position="relative" variant="unstyled">
+                  <TabList>
+                    <Tab>Rocket Details</Tab>
+                    <Tab>Launch video</Tab>
+                  </TabList>
+                  <TabIndicator
+                    mt="-1.5px"
+                    height="2px"
+                    bg="blue.500"
+                    borderRadius="1px"
+                  />
+                  <TabPanels>
+                    <TabPanel h="100%">
+                      <Flex bg="black" h="35vh">
+                        <Box flex="40%" h="100%">
+                          <Image objectFit="cover" src={RocketGif}></Image>
+                        </Box>
+                        <Box flex="60%" h="100%">
+                          <Center h="18vh">
+                            <Text>{rocket?.description}</Text>
+                          </Center>
+                        </Box>
+                      </Flex>
+                    </TabPanel>
+                    <TabPanel h="100%">
+                      <Flex h="35vh">
+                        <Box h="90%">
+                        <YoutubePlayer videoId="g4aX_Fn7iI4" />
+                        </Box>
+                      </Flex>
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
+              </Box>
+              <Box
+                h="5%"
+                color="white"
+                display="flex"
+                alignItems="center"
+                mr={4}
+              >
+                <IoLogoGithub /> <Text ml={1}>AdrianCabreraPhi</Text>
+              </Box>
+            </Fade>
           </Box>
+          {/* border red  */}
+          <Box bg="#F44436" flex="0.1%" h="100%"></Box>
         </Flex>
       </Fade>
     </>

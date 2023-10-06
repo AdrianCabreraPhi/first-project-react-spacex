@@ -1,9 +1,6 @@
-import logo from "../assets/spacex.png";
 import "./Header.css";
-import headerImg from "../assets/spacexheader1.png";
 import RocketGif from "../assets/cohete1.gif";
 import Fade from "react-reveal/Fade";
-import Zoom from "react-reveal/Zoom";
 const gifHeaderStyle = {
   marginBottom: "100px",
 };
