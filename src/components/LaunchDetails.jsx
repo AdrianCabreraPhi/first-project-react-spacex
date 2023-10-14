@@ -19,17 +19,10 @@ import Fade from "react-reveal/Fade";
 import leftImg from "../assets/spacex.png";
 import { FaHome } from "react-icons/fa";
 import YoutubePlayer from "../services/YoutubePlayer.jsx";
-import RocketGif from "../assets/rocket_details.gif";
-import { IoLogoGithub } from "react-icons/io";
 import { MainDetails } from "./MainDetails";
+import { RocketDetails } from "./RocketDetails";
+import {Footer} from "./Footer";
 
-export const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-};
 export function LaunchDetails() {
   const [launch, setLaunch] = useState({});
   const { launchId } = useParams();
@@ -43,7 +36,6 @@ export function LaunchDetails() {
           API.getRocketDetails(launchData.rocket.rocket_id)
             .then((rocketData) => {
               setRocket(rocketData);
-              // console.log(launchData.launch_site.site_id);
             })
             .catch(console.log);
         }
@@ -90,7 +82,7 @@ export function LaunchDetails() {
             </Box>
             <Box h="15%" mr={10} textColor="white">
               <Flex>
-              <MainDetails {...launch} />
+                <MainDetails {...launch} />
               </Flex>
             </Box>
 
@@ -109,20 +101,7 @@ export function LaunchDetails() {
                   />
                   <TabPanels>
                     <TabPanel h="100%">
-                      <Flex bg="black" h="35vh">
-                        <Box flex="40%" h="100%">
-                          <Fade>
-                            <Image objectFit="cover" src={RocketGif}></Image>
-                          </Fade>
-                        </Box>
-                        <Box flex="60%" h="100%">
-                          <Fade>
-                            <Center h="18vh">
-                              <Text>{rocket?.description}</Text>
-                            </Center>
-                          </Fade>
-                        </Box>
-                      </Flex>
+                      <RocketDetails {...rocket} />
                     </TabPanel>
                     <TabPanel h="100%">
                       <Flex h="35vh">
@@ -136,20 +115,7 @@ export function LaunchDetails() {
                   </TabPanels>
                 </Tabs>
               </Box>
-              <Box
-                h="5%"
-                color="white"
-                display="flex"
-                alignItems="center"
-                mr={4}
-              >
-                <IoLogoGithub />
-                <a href="https://github.com/AdrianCabreraPhi" target="_blank">
-                  <Text color="white" ml={1}>
-                    AdrianCabreraPhi{" "}
-                  </Text>
-                </a>
-              </Box>
+            <Footer/>
             </Fade>
           </Box>
           {/* border red  */}
