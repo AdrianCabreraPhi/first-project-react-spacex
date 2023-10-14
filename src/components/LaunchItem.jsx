@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import { RiChatDeleteLine, RiChatCheckLine } from "react-icons/ri";
 
 export function LaunchItem(launch) {
-  console.log(launch);
+
 
   function LaunchImage({ linkImage }) {
     return (
@@ -63,7 +63,7 @@ export function LaunchItem(launch) {
   }
 
   return (
-    <SimpleGrid my={40} columns={2}>
+    <SimpleGrid bg="black" color="white" py={40} columns={2}>
       {launch.position % 2 === 0 && (
         <>
           <Fade>

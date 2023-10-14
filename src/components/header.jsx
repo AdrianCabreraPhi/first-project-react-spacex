@@ -1,10 +1,16 @@
 import "./Header.css";
 import RocketGif from "../assets/cohete1.gif";
 import Fade from "react-reveal/Fade";
+import { Box, Text } from "@chakra-ui/react";
 const gifHeaderStyle = {
-  marginBottom: "100px",
+  marginBottom: "300px",
+  marginRight: "100vh",
 };
 
+
+const xStyle = {
+  color: "#205282"
+}
 
 export function Header() {
   return (
@@ -12,7 +18,15 @@ export function Header() {
       <Fade big>
         <div className="header">
           <Fade delay={1000}>
-            <img style={gifHeaderStyle} src={RocketGif} alt="Gif Rocket" />
+            <Box display="flex" style={gifHeaderStyle}>
+              <Text fontSize="9xl" color="white">
+                Space <span style={xStyle}>X</span>
+              </Text>
+              <Fade delay={1500}>
+                <img src={RocketGif} alt="Gif Rocket" />
+              </Fade>
+              {/* <Text fontSize='5xl' colorScheme="blue"> </Text> */}
+            </Box>
           </Fade>
         </div>
       </Fade>

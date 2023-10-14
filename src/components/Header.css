@@ -1,7 +1,7 @@
 .header {
-    background-image: url('../assets/probar.jpg');
+    background-image: url('../assets/bueno.jpg');
     max-width: 100%; /* Reduzca el ancho de la imagen al 50% del tamaño original */
-    height: 880px; /* Reduzca el ancho de la imagen al 50% del tamaño original */
+    height: 1000px; /* Reduzca el ancho de la imagen al 50% del tamaño original */
     background-size: cover; /* Ajusta la imagen para cubrir todo el ancho */
     background-repeat: no-repeat; /* Evita la repetición de la imagen */
     /* Otros estilos que desees aplicar al encabezado */

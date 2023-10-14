@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import * as API from "../services/launches";
+import * as APILocation from "../services/location";
 import { useState, useEffect } from "react";
-
 import {
   Box,
   SimpleGrid,
@@ -17,6 +17,14 @@ import {
   TabPanels,
   TabPanel,
   Tab,
+  useDisclosure,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
 } from "@chakra-ui/react";
 import Fade from "react-reveal/Fade";
 import leftImg from "../assets/spacex.png";
@@ -30,6 +38,7 @@ import YoutubePlayer from "../services/YoutubePlayer.jsx";
 import RocketGif from "../assets/rocket_details.gif";
 
 import { IoLogoGithub } from "react-icons/io";
+import Map from "./Map";
 
 export const settings = {
   dots: true,
@@ -38,11 +47,12 @@ export const settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
 };
-
 export function LaunchDetails() {
   const [launch, setLaunch] = useState({});
   const { launchId } = useParams();
   const [rocket, setRocket] = useState();
+  const [location, setLocation] = useState();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     API.getLaunchByFlightNumber(launchId)
@@ -52,13 +62,20 @@ export function LaunchDetails() {
           API.getRocketDetails(launchData.rocket.rocket_id)
             .then((rocketData) => {
               setRocket(rocketData);
-              console.log(rocketData);
+              console.log(launchData.launch_site.site_id);
+              APILocation.getLocation(launchData.launch_site.site_id)
+                .then((locationData) => {
+                  setLocation(locationData[0]);
+                  console.log(locationData);
+                })
+                .catch(console.log);
             })
             .catch(console.log);
         }
       })
       .catch(console.log);
   }, [launchId]);
+
   return (
     <>
       <Fade>
@@ -70,7 +87,9 @@ export function LaunchDetails() {
                   <Button size="lg" colorScheme="blackAlpha">
                     <Box display="flex" alignItems="center">
                       <FaHome />
-                      <Text pt={1} ml={2}>Home</Text>
+                      <Text pt={1} ml={2}>
+                        Home
+                      </Text>
                     </Box>
                   </Button>
                 </Link>
@@ -127,13 +146,13 @@ export function LaunchDetails() {
                     <SimpleGrid columns={1} spacing={8}>
                       <Box color="gray" fontSize="5xl" height="50px">
                         <Center>
-                          <PiMapPinLineDuotone />
+                          <PiMapPinLineDuotone/>
                         </Center>
                       </Box>
                       <Box height="50px">
-                        <Text textAlign="center">
+                        <Button onClick={onOpen} size='xs' textAlign="center" colorScheme="blue">
                           {launch.launch_site?.site_name}
-                        </Text>
+                        </Button>
                       </Box>
                     </SimpleGrid>
                   </Box>
@@ -207,49 +226,39 @@ export function LaunchDetails() {
                 alignItems="center"
                 mr={4}
               >
-                <IoLogoGithub />{" "}
-                <Text ml={1}>AdrianCabreraPhi {launch?.youtube_id} </Text>
+                <IoLogoGithub />
+                <a href="https://github.com/AdrianCabreraPhi" target="_blank">
+                <Text color="white" ml={1}>AdrianCabreraPhi </Text>
+              </a>
               </Box>
             </Fade>
           </Box>
           {/* border red  */}
-          <Box bg="#F44436" flex="0.1%" h="100%"></Box>
+          <Box bg="#3181CD" flex="0.1%" h="100%"></Box>
         </Flex>
+
+        <Drawer
+          bg="black"
+          size={"lg"}
+          placement="left"
+          onClose={onClose}
+          isOpen={isOpen}
+        >
+          <DrawerOverlay />
+          <DrawerContent bg="gray.800">
+            <DrawerCloseButton color="white" />
+            <DrawerHeader color="white">{location?.name}</DrawerHeader>
+            <DrawerBody>{location && <Map {...location} />}</DrawerBody>
+
+            <DrawerFooter display="flex"  justifyContent="flex-start" >
+            <IoLogoGithub color="white" />
+              <a href="https://github.com/AdrianCabreraPhi" target="_blank">
+                <Text color="white" pt={1} ml={1}>AdrianCabreraPhi </Text>
+              </a>
+          </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
       </Fade>
     </>
   );
-}
-
-{
-  /* <Center h='100vh'>
-<Card
-direction={{ base: 'column', sm: 'row' }}
-overflow='hidden'
-variant='outline'
->
-<Image
-objectFit='cover'
-maxW={{ base: '100%', sm: '200px' }}
-src='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
-alt='Caffe Latte'
-/>
-
-<Stack>
-<CardBody>
-<Heading size='md'>The perfect latte</Heading>
-
-<Text py='2'>
-  Caffè latte is a coffee beverage of Italian origin made with espresso
-  and steamed milk.
-</Text>
-</CardBody>
-
-<CardFooter>
-<Button variant='solid' colorScheme='blue'>
-  Buy Latte
-</Button>
-</CardFooter>
-</Stack>
-</Card>
-</Center> */
 }
