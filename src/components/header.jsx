@@ -9,7 +9,7 @@ const gifHeaderStyle = {
 
 
 const xStyle = {
-  color: "#205282"
+  color: "#11141B"
 }
 
 export function Header() {
@@ -18,8 +18,8 @@ export function Header() {
       <Fade big>
         <div className="header">
           <Fade delay={1000}>
-            <Box display="flex" style={gifHeaderStyle}>
-              <Text fontSize="9xl" color="white">
+            <Box borderBottom="1px" borderBottomColor="#11141B"  display="flex" style={gifHeaderStyle}>
+              <Text  fontSize="9xl" color="white">
                 Space <span style={xStyle}>X</span>
               </Text>
               <Fade delay={1500}>
