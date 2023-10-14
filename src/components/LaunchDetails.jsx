@@ -1,15 +1,12 @@
 import { useParams, Link } from "react-router-dom";
 import * as API from "../services/launches";
-import * as APILocation from "../services/location";
 import { useState, useEffect } from "react";
 import {
   Box,
-  SimpleGrid,
   Text,
   Flex,
   Button,
   Center,
-  Spacer,
   Image,
   Tabs,
   TabList,
@@ -17,28 +14,14 @@ import {
   TabPanels,
   TabPanel,
   Tab,
-  useDisclosure,
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
 } from "@chakra-ui/react";
 import Fade from "react-reveal/Fade";
 import leftImg from "../assets/spacex.png";
-import { FaHashtag, FaHome } from "react-icons/fa";
-import { FcCalendar } from "react-icons/fc";
-import { PiMapPinLineDuotone } from "react-icons/pi";
-import { BsRocketTakeoff } from "react-icons/bs";
-
+import { FaHome } from "react-icons/fa";
 import YoutubePlayer from "../services/YoutubePlayer.jsx";
-
 import RocketGif from "../assets/rocket_details.gif";
-
 import { IoLogoGithub } from "react-icons/io";
-import Map from "./Map";
+import { MainDetails } from "./MainDetails";
 
 export const settings = {
   dots: true,
@@ -51,8 +34,6 @@ export function LaunchDetails() {
   const [launch, setLaunch] = useState({});
   const { launchId } = useParams();
   const [rocket, setRocket] = useState();
-  const [location, setLocation] = useState();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     API.getLaunchByFlightNumber(launchId)
@@ -62,13 +43,7 @@ export function LaunchDetails() {
           API.getRocketDetails(launchData.rocket.rocket_id)
             .then((rocketData) => {
               setRocket(rocketData);
-              console.log(launchData.launch_site.site_id);
-              APILocation.getLocation(launchData.launch_site.site_id)
-                .then((locationData) => {
-                  setLocation(locationData[0]);
-                  console.log(locationData);
-                })
-                .catch(console.log);
+              // console.log(launchData.launch_site.site_id);
             })
             .catch(console.log);
         }
@@ -115,65 +90,7 @@ export function LaunchDetails() {
             </Box>
             <Box h="15%" mr={10} textColor="white">
               <Flex>
-                <Fade top delay={4000}>
-                  <Box p="4">
-                    <SimpleGrid columns={1} spacing={8}>
-                      <Box fontSize="5xl" height="50px">
-                        <FaHashtag />
-                      </Box>
-                      <Box height="50px">
-                        <Text textAlign="center">{launch.flight_number}</Text>
-                      </Box>
-                    </SimpleGrid>
-                  </Box>
-                </Fade>
-                <Spacer />
-                <Fade top delay={5000}>
-                  <Box p="4">
-                    <SimpleGrid columns={1} spacing={8}>
-                      <Box fontSize="5xl" height="50px">
-                        <FcCalendar />
-                      </Box>
-                      <Box height="50px">
-                        <Text textAlign="center">{launch.launch_year}</Text>
-                      </Box>
-                    </SimpleGrid>
-                  </Box>
-                </Fade>
-                <Spacer />
-                <Fade top delay={6000}>
-                  <Box p="4">
-                    <SimpleGrid columns={1} spacing={8}>
-                      <Box color="gray" fontSize="5xl" height="50px">
-                        <Center>
-                          <PiMapPinLineDuotone/>
-                        </Center>
-                      </Box>
-                      <Box height="50px">
-                        <Button onClick={onOpen} size='xs' textAlign="center" colorScheme="blue">
-                          {launch.launch_site?.site_name}
-                        </Button>
-                      </Box>
-                    </SimpleGrid>
-                  </Box>
-                </Fade>
-                <Spacer />
-                <Fade top delay={7000}>
-                  <Box p="4">
-                    <SimpleGrid columns={1} spacing={8}>
-                      <Box fontSize="5xl" height="50px">
-                        <Center>
-                          <BsRocketTakeoff />
-                        </Center>
-                      </Box>
-                      <Box height="50px">
-                        <Text textAlign="center">
-                          {launch.rocket?.rocket_name}
-                        </Text>
-                      </Box>
-                    </SimpleGrid>
-                  </Box>
-                </Fade>
+              <MainDetails {...launch} />
               </Flex>
             </Box>
 
@@ -228,36 +145,16 @@ export function LaunchDetails() {
               >
                 <IoLogoGithub />
                 <a href="https://github.com/AdrianCabreraPhi" target="_blank">
-                <Text color="white" ml={1}>AdrianCabreraPhi </Text>
-              </a>
+                  <Text color="white" ml={1}>
+                    AdrianCabreraPhi{" "}
+                  </Text>
+                </a>
               </Box>
             </Fade>
           </Box>
           {/* border red  */}
           <Box bg="#3181CD" flex="0.1%" h="100%"></Box>
         </Flex>
-
-        <Drawer
-          bg="black"
-          size={"lg"}
-          placement="left"
-          onClose={onClose}
-          isOpen={isOpen}
-        >
-          <DrawerOverlay />
-          <DrawerContent bg="gray.800">
-            <DrawerCloseButton color="white" />
-            <DrawerHeader color="white">{location?.name}</DrawerHeader>
-            <DrawerBody>{location && <Map {...location} />}</DrawerBody>
-
-            <DrawerFooter display="flex"  justifyContent="flex-start" >
-            <IoLogoGithub color="white" />
-              <a href="https://github.com/AdrianCabreraPhi" target="_blank">
-                <Text color="white" pt={1} ml={1}>AdrianCabreraPhi </Text>
-              </a>
-          </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
       </Fade>
     </>
   );
