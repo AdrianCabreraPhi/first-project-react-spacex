@@ -14,11 +14,7 @@ function Map(location) {
 
     return (
       <MapContainer center={[location.lat, location.lon]} zoom={3}   scrollWheelZoom={true}>
-        {/* <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='© OpenStreetMap contributors'
-        /> */}
-        <TileLayer attribution="Stadia Maps" url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"/>
+        <TileLayer attribution="Stadia Maps" url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"/>
         <Marker position={[location.lat, location.lon]} icon={customIcon}>
           <Popup>{location.display_name}</Popup>
         </Marker>

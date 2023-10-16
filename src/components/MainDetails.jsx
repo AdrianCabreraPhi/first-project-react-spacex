@@ -108,7 +108,7 @@ export function MainDetails(launch) {
         isOpen={isOpen}
       >
         <DrawerOverlay />
-        <DrawerContent bg="gray.800">
+        <DrawerContent bg="black">
           <DrawerCloseButton color="white" />
           <DrawerHeader color="white">{location?.name}</DrawerHeader>
           <DrawerBody>{location && <Map {...location} />}</DrawerBody>
