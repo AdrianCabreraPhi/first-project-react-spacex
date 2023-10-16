@@ -13,6 +13,7 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  Image
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import * as APILocation from "../services/location";
@@ -20,25 +21,20 @@ import Fade from "react-reveal/Fade";
 import { IoLogoGithub } from "react-icons/io";
 import { FaHashtag } from "react-icons/fa";
 import { FcCalendar } from "react-icons/fc";
-import { PiMapPinLineDuotone } from "react-icons/pi";
+import MapIcon from "../assets/map-icon-sm.png";
 import { BsRocketTakeoff } from "react-icons/bs";
 import Map from "./Map";
 export function MainDetails(launch) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [location, setLocation] = useState({});
 
-
-   useEffect(() => {
-     console.log("MainDetailsComponent")
-     console.log(launch)
-     APILocation.getLocation(launch?.launch_site?.site_id)
-     .then((locationData) => {
-       setLocation(locationData[0]);
-     })
-     .catch(console.log);
-   },[launch]);
-
-
+  useEffect(() => {
+    APILocation.getLocation(launch?.launch_site?.site_id)
+      .then((locationData) => {
+        setLocation(locationData[0]);
+      })
+      .catch(console.log);
+  }, [launch]);
 
   return (
     <>
@@ -73,7 +69,7 @@ export function MainDetails(launch) {
           <SimpleGrid columns={1} spacing={8}>
             <Box color="gray" fontSize="5xl" height="50px">
               <Center>
-                <PiMapPinLineDuotone />
+               <Image h={14}  src={MapIcon}></Image> 
               </Center>
             </Box>
             <Box height="50px">
