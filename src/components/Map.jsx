@@ -18,7 +18,7 @@ function Map(location) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='© OpenStreetMap contributors'
         /> */}
-        <TileLayer attribution="Stamen dark" url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"/>
+        <TileLayer attribution="Stadia Maps" url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"/>
         <Marker position={[location.lat, location.lon]} icon={customIcon}>
           <Popup>{location.display_name}</Popup>
         </Marker>
