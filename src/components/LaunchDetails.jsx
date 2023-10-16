@@ -48,7 +48,7 @@ export function LaunchDetails() {
       <Fade>
         <Flex bg="black" h="100vh">
           <Box flex="60%" h="100%">
-            <Fade delay={2000}>
+            <Fade delay={1000}>
               <Box bg="black" h="5%" m={0} p={0}>
                 <Link to="/">
                   <Button size="lg" colorScheme="blackAlpha">
@@ -76,7 +76,7 @@ export function LaunchDetails() {
               alignItems="center"
               justifyContent="center"
             >
-              <Fade delay={3000}>
+              <Fade delay={2000}>
                 <Image src={launch.links?.mission_patch_small} />
               </Fade>
             </Box>
@@ -86,7 +86,7 @@ export function LaunchDetails() {
               </Flex>
             </Box>
 
-            <Fade delay={8000}>
+            <Fade delay={7000}>
               <Box h="40%" color="white">
                 <Tabs position="relative" variant="unstyled">
                   <TabList>

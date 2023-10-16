@@ -38,7 +38,7 @@ export function MainDetails(launch) {
 
   return (
     <>
-      <Fade top delay={4000}>
+      <Fade top delay={3000}>
         <Box p="4">
           <SimpleGrid columns={1} spacing={8}>
             <Box fontSize="5xl" height="50px">
@@ -51,7 +51,7 @@ export function MainDetails(launch) {
         </Box>
       </Fade>
       <Spacer />
-      <Fade top delay={5000}>
+      <Fade top delay={4000}>
         <Box p="4">
           <SimpleGrid columns={1} spacing={8}>
             <Box fontSize="5xl" height="50px">
@@ -64,7 +64,7 @@ export function MainDetails(launch) {
         </Box>
       </Fade>
       <Spacer />
-      <Fade top delay={6000}>
+      <Fade top delay={5000}>
         <Box p="4">
           <SimpleGrid columns={1} spacing={8}>
             <Box color="gray" fontSize="5xl" height="50px">
@@ -86,7 +86,7 @@ export function MainDetails(launch) {
         </Box>
       </Fade>
       <Spacer />
-      <Fade top delay={7000}>
+      <Fade top delay={6000}>
         <Box p="4">
           <SimpleGrid columns={1} spacing={8}>
             <Box fontSize="5xl" height="50px">
