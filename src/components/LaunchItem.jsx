@@ -7,7 +7,7 @@ import {
   Center,
   Img,
   Tag,
-  Spacer
+  Tooltip,
 } from "@chakra-ui/react";
 import "dayjs/locale/es";
 import Fade from "react-reveal/Fade";
@@ -16,8 +16,6 @@ import { Link } from "react-router-dom";
 import { RiChatDeleteLine, RiChatCheckLine } from "react-icons/ri";
 
 export function LaunchItem(launch) {
-
-
   function LaunchImage({ linkImage }) {
     return (
       <Center>
@@ -26,7 +24,6 @@ export function LaunchItem(launch) {
     );
   }
 
-
   function LaunchInformation({ props }) {
     return (
       <Box>
@@ -34,13 +31,25 @@ export function LaunchItem(launch) {
           <Center>
             <Text fontSize="4xl" display="inline-block">
               Mission <strong>{props.mission_name}</strong>({props.launch_year})
-              <Tag p={2} colorScheme={launch.launch_success ? "green" : "red"}>
-                {launch.launch_success ? (
-                  <RiChatCheckLine />
-                ) : (
-                  <RiChatDeleteLine />
-                )}
-              </Tag>
+              <Tooltip
+                label={
+                  launch.launch_success ? "Succesfully" : "Failed"
+                }
+                placement='right-end'
+                bg={launch.launch_success ? "#C6F6D5" : "#FFD7D7"}
+                color="black"
+              >
+                <Tag
+                  p={2}
+                  colorScheme={launch.launch_success ? "green" : "red"}
+                >
+                  {launch.launch_success ? (
+                    <RiChatCheckLine />
+                  ) : (
+                    <RiChatDeleteLine />
+                  )}
+                </Tag>
+              </Tooltip>
             </Text>
           </Center>
         </Flex>
