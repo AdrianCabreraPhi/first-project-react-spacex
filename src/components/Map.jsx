@@ -9,7 +9,7 @@ function Map(location) {
 
   const customIcon = new Icon({
     iconUrl: iconUrl,
-    iconSize: [38,38] // size of the icon
+    iconSize: [38,38]
   });
 
     return (
